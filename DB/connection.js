@@ -1,6 +1,6 @@
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://mjaay:m123@cluster0-qrjt7.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://ade:ade@123@cluster0-vmpa8.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
@@ -9,3 +9,5 @@ client.connect(err => {
 });
 
 module.exports = connectDB;
+
+
