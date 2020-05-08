@@ -1,6 +1,7 @@
 var express     = require("express"),
     app         = express(),
     bodyparser  = require("body-parser"),
+    PORT        = process.env.PORT || 8080,
     mongoose    = require("mongoose"),
     flash       = require("connect-flash"),
     passport    = require("passport"),
@@ -16,7 +17,11 @@ var express     = require("express"),
         campgroundRoutes = require("./routes/campgrounds"),
         indexRoutes      = require("./routes/index")
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp_v12", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/yelp_camp_v12", {useNewUrlParser: true, useUnifiedTopology: true}, function(err){
+            if(err){
+                return console.error('failed');
+            }
+        });
     app.use(bodyparser.urlencoded({extended: true}));
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + "/public"));
@@ -48,7 +53,6 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 
-
-app.listen(3000, function(){
-    console.log("Yelpcamp server has started!!!");
+app.listen(process.env.PORT, function(){
+    console.log("Server is runing!!!");
 });
